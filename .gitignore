@@ -1,0 +1,6 @@
+*.mbox
+*.csv
+*.json
+emails/
+ignored_emails/
+__pycache__
