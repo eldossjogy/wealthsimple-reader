@@ -25,6 +25,7 @@ patterns = {
     "subject": r"Subject:\s*(.*)",
     "date": r"Date:\s*(.*)",
     "total_value": r"Total value:\s*\*?\$?(.*?)\*?\s*(?:$|\n)",
+    "deposit_to": r"To:\s*(\w+)\s*\(.*?\)",    
 }
 
 dividends = {
@@ -164,14 +165,13 @@ for transaction in all_data_sorted:
         if any(value is None for value in temp_formatted_transaction.values()):
             print("\033[91mSome \033[1mDIVIDEND\033[0;91m transaction contains None:\033[0m")
             print(temp_formatted_transaction)
-            print(transaction.get("file_id"))
             print(transaction)
             break    
         formatted_output.append(temp_formatted_transaction)
     elif transaction.get('Action') == "DEPOSIT":
         temp_formatted_transaction = {}
         temp_formatted_transaction["Type"] = "Deposit"    
-        temp_formatted_transaction["Account"] = transaction.get("account")    
+        temp_formatted_transaction["Account"] = transaction.get("account") or transaction.get("deposit_to")  
         temp_formatted_transaction["Amount"] = transaction.get("amount")    
         temp_formatted_transaction["Symbol"] = "$CASH-CAD"   
         temp_formatted_transaction["Date"] = transaction.get("date")    
@@ -181,6 +181,7 @@ for transaction in all_data_sorted:
         if any(value is None for value in temp_formatted_transaction.values()):
             print("\033[91mSome \033[1mDEPOSIT\033[0;91m transaction contains None:\033[0m")
             print(temp_formatted_transaction)
+            print(transaction)
             break   
         formatted_output.append(temp_formatted_transaction)
     else:
