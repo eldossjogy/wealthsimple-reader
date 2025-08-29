@@ -33,3 +33,10 @@ This script parses email exports to generate a complete summary of your Wealthsi
   {
     "TD": "TD.TO"
   }
+## Run the Scripts
+
+1. Place the mbox file in the root directory.  
+2. Run `python extract.py` to extract the emails from the mbox file.  
+3. Run `python processing.py` to convert the emails into a CSV.  
+4. An output file named `data.csv` should be present in the root directory.  
+
